@@ -45,5 +45,3 @@ function sshArch {
 function GuaQiArch {
   & vmrun suspend $vmPath
 }
-
-ArchStatus
