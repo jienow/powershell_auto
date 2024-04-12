@@ -5,14 +5,19 @@ function ArchStatus {
 
 # 使用 vmrun 命令获取虚拟机状态
   $vmStatus = & vmrun list;
+  # Write-Host $vmStatus.gettype()
+
 # Write-Host $vmPath
-# Write-Host $vmStatus[1]
+  # Write-Host $vmStatus
+  # Write-Host $vmStatus[1]
 
 # 检查虚拟机是否在启动中
-  if ($vmStatus[1] -eq $vmPath) {
+  if ($vmStatus -is [String]) {
+    return $false
+  } elseif ($vmStatus -is [Object[]]) {
     return $true
   } else {
-    return $false
+    Write-Host "未知类型"
   }
 }
 
@@ -40,3 +45,5 @@ function sshArch {
 function GuaQiArch {
   & vmrun suspend $vmPath
 }
+
+ArchStatus
