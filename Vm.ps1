@@ -1,38 +1,45 @@
 $vmPath = 'D:\vm\Arch\Archlinux.vmx'
 
-function ArchStatus {
-# 定义虚拟机的路径
+function ArchStatus
+{
+  # 定义虚拟机的路径
 
-# 使用 vmrun 命令获取虚拟机状态
+  # 使用 vmrun 命令获取虚拟机状态
   $vmStatus = & vmrun list;
   # Write-Host $vmStatus.gettype()
 
-# Write-Host $vmPath
+  # Write-Host $vmPath
   # Write-Host $vmStatus
   # Write-Host $vmStatus[1]
 
-# 检查虚拟机是否在启动中
-  if ($vmStatus -is [String]) {
+  # 检查虚拟机是否在启动中
+  if ($vmStatus -is [String])
+  {
     return $false
-  } elseif ($vmStatus -is [Object[]]) {
+  } elseif ($vmStatus -is [Object[]])
+  {
     return $true
-  } else {
+  } else
+  {
     Write-Host "未知类型"
   }
 }
 
-function sshArch {
+function sshArch
+{
   $Result = & ArchStatus;
   if ($Result -eq $false)
   {
     Write-Host "虚拟机未在启动中。";
     # 启动虚拟机
-    & vmrun start $vmPath;
+    & vmrun start $vmPath nogui;
     # 循环判断状态
-    for ($i = 1; $i -le 30; $i++) {
+    for ($i = 1; $i -le 100; $i++)
+    {
       $Result = & ArchStatus;
       # 已经启动则退出
-      if ($Result -eq $true){
+      if ($Result -eq $true)
+      {
         break
       }
       Start-Sleep -Seconds 1
@@ -42,6 +49,7 @@ function sshArch {
   ssh arch
 }
 
-function GuaQiArch {
+function GuaQiArch
+{
   & vmrun suspend $vmPath
 }
