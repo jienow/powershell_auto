@@ -30,11 +30,11 @@ function sshArch
   $Result = & ArchStatus;
   if ($Result -eq $false)
   {
-    Write-Host "虚拟机未在启动中。";
+    Write-Host "虚拟机没有启动。";
     # 启动虚拟机
     & vmrun start $vmPath nogui;
     # 循环判断状态
-    for ($i = 1; $i -le 100; $i++)
+    for ($i = 1; $i -le 1000; $i++)
     {
       $Result = & ArchStatus;
       # 已经启动则退出
