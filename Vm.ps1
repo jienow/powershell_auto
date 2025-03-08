@@ -1,4 +1,4 @@
-$vmPath = 'D:\vm\Arch\Archlinux.vmx'
+$vmPath = 'D:\vm\Archlinux2025\archlinux2025.vmx'
 
 function ArchStatus
 {
@@ -46,6 +46,7 @@ function sshArch
     }
   }
   Write-Host "虚拟机正在启动中。";
+  clear
   ssh arch
 }
 
